@@ -19,35 +19,7 @@ public class ColorBlindnessInjector : MonoBehaviour
     {
         urd.rendererFeatures.Remove(_colorBlindnessFullScreenPass);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            CreateColorBlindnessPass(options.ProtanopiaMaterial);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            CreateColorBlindnessPass(options.DeuteranopiaMaterial);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            CreateColorBlindnessPass(options.TritanopiaMaterial);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            CreateColorBlindnessPass(options.AchromiaMaterial);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            CreateColorBlindnessPass(options.ContrastMaterial);
-        }
-    }
+    
 
     void CreateColorBlindnessPass(Material colorBlindnessMat)
     {
@@ -65,5 +37,41 @@ public class ColorBlindnessInjector : MonoBehaviour
 
         urd.rendererFeatures.Add(_colorBlindnessFullScreenPass);
         urd.SetDirty();
+    }
+
+    public List<string> GetOptions()
+    {
+        return options.GetColorblindnessOptions();
+    }
+
+    public void SetColorblindnessMode(string mode)
+    {
+        if (mode == "None" && _colorBlindnessFullScreenPass != null)
+        {
+            urd.rendererFeatures.Remove(_colorBlindnessFullScreenPass);
+            urd.SetDirty();
+            
+        }
+
+        if (mode == "Protanopia")
+        {
+            CreateColorBlindnessPass(options.ProtanopiaMaterial);
+        }
+        if (mode == "Deuteranopia")
+        {
+            CreateColorBlindnessPass(options.DeuteranopiaMaterial);
+        }
+        if (mode == "Tritanopia")
+        {
+            CreateColorBlindnessPass(options.TritanopiaMaterial);
+        }
+        if (mode == "Achromia")
+        {
+            CreateColorBlindnessPass(options.AchromiaMaterial);
+        }
+        if (mode == "Contrast")
+        {
+            CreateColorBlindnessPass(options.ContrastMaterial);
+        }
     }
 }
